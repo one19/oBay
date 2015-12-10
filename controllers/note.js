@@ -1,4 +1,5 @@
 const jsen = require('jsen');
+const _ = require('lodash');
 
 const db = require('../lib/db.js');
 const schema = require('../schemas/note.json');
@@ -11,27 +12,101 @@ const firstChange = res => {
   }
 }
 
-const wrapResult = res => {
-  return {result: res}
+const properties = Object.keys(schema.properties);
+
+const onlyProps = params => (p, prop) => {
+  p[prop] = params[prop];
+  return p
 }
 
-const properties = Object.keys(schema.properties);
+const stringToBool = params => {
+  return Object.keys(params).reduce((p, k) => {
+    const param = params[k];
+    switch (param) {
+      case 'true':
+        p[k] = true;
+        break;
+      case 'false':
+        p[k] = false;
+        break;
+      default:
+        p[k] = param;
+    }
+    return p;
+  }, {});
+}
+
+const stringToNumber = params => {
+  return Object.keys(params).reduce((p, k) => {
+    const param = params[k];
+    const num = Number(param);
+    p[k] = param;
+    if (!isNaN(num)) p[k] = num;
+    return p;
+  }, {});
+}
+
+const normaliseParams = params => {
+  return stringToBool(stringToNumber(params));
+}
 
 module.exports = {
   get: (params) => {
     const table = db.table('notes');
-    if (params && params.id) {
+
+    if (params.id) {
       return table.get(params.id).run()
-      .then(wrapResult);
+      .then(res => { return {result: res} });
     }
 
-    const filterParams = properties.reduce((p, prop) => {
-      p[prop] = params[prop];
-      return p
-    }, {});
+    params = _.assign({result: true, order: 'asc'}, normaliseParams(params));
 
-    return table.filter(filterParams).run()
-    .then(wrapResult)
+    const filterParams = properties.reduce(onlyProps(params), {});
+    const filteredTable = table.filter(filterParams);
+
+    const query = ['orderBy', 'skip', 'limit'].reduce((q, item) => {
+      if (params[item]) {
+        if (item === 'orderBy') {
+          q = q[item](db[params.order](params[item]));
+        } else {
+          q = q[item](params[item]);
+        }
+      }
+      return q;
+    }, filteredTable);
+
+    const taggedQueries = [
+      {tag: 'result', q: query},
+      {tag: 'count', q: filteredTable.count()}
+    ].filter(x => params[x.tag]);
+
+    return Promise.all(taggedQueries.map(x => x.q.run()))
+    .then(results => {
+      return results.reduce((response, result, i) => {
+        const tag = taggedQueries[i].tag;
+        response[tag] = result;
+        if (tag === 'count' && result > 0) response.found = true;
+        if (tag === 'response' && result.length > 0) response.found = true;
+        return response;
+      }, {found: false});
+    });
+  },
+  watch: (params) => {
+    const table = db.table('notes');
+    if (params && params.id) {
+      return table.get(params.id).changes({includeInitial: true, includeStates: true}).run();
+    }
+
+    params = normaliseParams(params);
+
+    const filterParams = properties.reduce(onlyProps(params), {});
+
+    const query = ['limit'].reduce((q, item) => {
+      if (params[item]) q = q[item](params[item]);
+      return q;
+    }, table.orderBy({index: 'id'}).filter(filterParams));
+
+    return query.changes({includeInitial: true, includeStates: true}).run();
   },
   create: (note) => {
     const valid = validate(note);
@@ -47,6 +122,9 @@ module.exports = {
   },
   delete: (id) => {
     return db.table('notes').get(id).delete({returnChanges: true}).run()
+    .then(res => {
+      return res;
+    })
     .then(firstChange);
   }
 };

@@ -20,14 +20,14 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">87.5% </span>
+        <span class="strong">90.91% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>21/24</span>
+        <span class='fraction'>30/33</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>5/5</span>
+        <span class='fraction'>8/8</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -35,9 +35,9 @@
         <span class='fraction'>0/0</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">86.96% </span>
+        <span class="strong">90% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>20/23</span>
+        <span class='fraction'>27/30</span>
       </div>
     </div>
   </div>
@@ -93,28 +93,44 @@
 48
 49
 50
-51</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-yes">25×</span>
+<span class="cline-any cline-yes">128×</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">25×</span>
-<span class="cline-any cline-yes">25×</span>
+<span class="cline-any cline-yes">128×</span>
+<span class="cline-any cline-yes">128×</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">24×</span>
+<span class="cline-any cline-yes">127×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-yes">14×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -126,19 +142,33 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-yes">13×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">106×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-yes">228×</span>
+<span class="cline-any cline-yes">223×</span>
+<span class="cline-any cline-yes">213×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -155,43 +185,58 @@ const errHandlerFactory = res =&gt; {
 };
 &nbsp;
 const respond = res =&gt; body =&gt; {
-  if (!body.result || (Array.isArray(body.result) &amp;&amp; body.result.length === 0)) {
+  if (!body.result &amp;&amp; !body.found) {
     res.status(404);
     return Promise.resolve(res.json({err: 'Not found'}));
   }
   return Promise.resolve(res.json(body));
 };
 &nbsp;
-module.exports = app =&gt; {
-  app.get('/users', (req, res) =&gt; {
-    user.get(req.query)
-    .then(respond(res))
-    .catch( errHandlerFactory(res) )
-  });
+module.exports = {
+  http: app =&gt; {
+    app.get('/users', (req, res) =&gt; {
+      user.get(req.query)
+      .then(respond(res))
+      .catch( errHandlerFactory(res) )
+    });
 &nbsp;
-  app.get('/users/:id', (req, res) =&gt; {
-    user.get(_.assign({id: req.params.id}, req.query))
-    .then(respond(res))
-    .catch( errHandlerFactory(res) )
-  });
+    app.get('/users/:id', (req, res) =&gt; {
+      user.get(_.assign({id: req.params.id}, req.query))
+      .then(respond(res))
+      .catch( errHandlerFactory(res) )
+    });
 &nbsp;
-  app.post('/users', (req, res) =&gt; {
-    user.create(req.body)
-    .then(respond(res))
-    .catch( errHandlerFactory(res) )
-  });
+    app.post('/users', (req, res) =&gt; {
+      user.create(req.body)
+      .then(respond(res))
+      .catch( errHandlerFactory(res) )
+    });
 &nbsp;
-  app.post('/users/:id', (req, res) =&gt; {
-    user.update(req.body)
-    .then(respond(res))
-    .catch( errHandlerFactory(res) )
-  });
+    app.put('/users/:id', (req, res) =&gt; {
+      user.update(req.body)
+      .then(respond(res))
+      .catch( errHandlerFactory(res) )
+    });
 &nbsp;
-  app.del('/users/:id', (req, res) =&gt; {
-    user.delete(req.params.id)
-    .then(respond(res))
-    .catch( errHandlerFactory(res) )
-  });
+    app.del('/users/:id', (req, res) =&gt; {
+      user.delete(req.params.id)
+      .then(respond(res))
+      .catch( errHandlerFactory(res) )
+    });
+  },
+  ws: io =&gt; {
+    const nsp = io.of('/users');
+    nsp.on('connection', socket =&gt; {
+      user.watch(socket.handshake.query)
+      .then(cursor =&gt; {
+        cursor.each((err, data) =&gt; {
+          if (!data) return;
+          if (data.state) return socket.emit('state', data);
+          socket.emit('record', data);
+        });
+      });
+    });
+  }
 };
 &nbsp;</pre></td></tr>
 </table></pre>
@@ -199,7 +244,7 @@ module.exports = app =&gt; {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Dec 09 2015 09:33:04 GMT+1100 (AEDT)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Thu Dec 10 2015 23:45:02 GMT+1100 (AEDT)
 </div>
 </div>
 <script src="../../prettify.js"></script>
