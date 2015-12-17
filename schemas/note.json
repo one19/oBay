@@ -7,7 +7,52 @@
     },
     "name": {
       "type": "string"
+    },
+    "content": {
+      "type": "string"
+    },
+    "timeSpent": {
+      "type": "string"
+    },
+    "updatedAt": {
+      "type": "string"
+    },
+    "createdAt": {
+      "type": "string"
+    },
+    "length": {
+      "type": "integer"
+    },
+    "emot": {
+      "type": "string"
+    },
+    "confidence": {
+      "type": "integer"
+    },
+    "score": {
+      "type": "integer"
+    },
+    "words": {
+      "required": "element",
+      "type": "array",
+      "properties": {
+        "comment": {"minLength": 1}
+      },
+      "element": {
+        "properties": {
+          "word": {
+            "type": "string",
+            "faker": "random.uuid"
+          },
+          "poSpeech": {
+            "type": "array"
+          },
+          "frequency": {
+            "type": "integer"
+          }
+        }
+      }
     }
   },
-  "required": ["name"]
+  "required": ["name", "words"]
 }

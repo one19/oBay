@@ -7,6 +7,15 @@
     },
     "name": {
       "type": "string"
+    },
+    "notes": {
+      "type": "array",
+      "properties": {
+        "note": {
+          "type": "string",
+          "faker": "random.uuid"
+        }
+      }
     }
   },
   "required": ["name"]

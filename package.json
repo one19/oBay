@@ -16,6 +16,7 @@
   "dependencies": {
     "bandname": "^1.0.0",
     "express": "^4.13.3",
+    "flat-ui": "^2.1.1",
     "jsen": "^0.6.0",
     "lodash": "^3.10.1",
     "react": "^0.14.3",

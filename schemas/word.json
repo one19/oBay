@@ -7,6 +7,22 @@
     },
     "name": {
       "type": "string"
+    },
+    "partsoSpeech": {
+      "type": "array"
+    },
+    "emot": {
+      "type": "object",
+      "properties": {
+        "confidence": "integer"
+      }
+    },
+    "alts": {
+      "type": "object",
+      "properties": {
+        "confidence": "integer",
+        "viability": "integer"
+      }
     }
   },
   "required": ["name"]

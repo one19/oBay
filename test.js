@@ -6,6 +6,8 @@ const setup = require('root/setup');
 const app = require('root/index');
 const db = require('root/lib/db');
 
+const DB_NAME = process.env.RETHINK_NAME;
+
 const server = app.listen(process.env.PORT, () => {
   setup()
   .then(() => {
@@ -19,7 +21,7 @@ const server = app.listen(process.env.PORT, () => {
     });
   })
   .then(() => {
-    test('teardown', () => db.dbDrop('oBay'));
+    test('teardown', () => db.dbDrop(DB_NAME));
     test('teardown', () => db.getPoolMaster().drain());
     test('teardown', () => {
       return Promise.resolve(app.close())
