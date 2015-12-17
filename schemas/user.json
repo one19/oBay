@@ -6,11 +6,12 @@
       "faker": "random.uuid"
     },
     "name": {
-      "type": "string"
+      "type": "string",
+      "faker": ""
     },
     "notes": {
       "type": "array",
-      "properties": {
+      "items": {
         "note": {
           "type": "string",
           "faker": "random.uuid"

@@ -9,7 +9,13 @@
       "type": "string"
     },
     "partsoSpeech": {
-      "type": "array"
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      },
+      "faker.poS": "randomArray"
     },
     "emot": {
       "type": "object",

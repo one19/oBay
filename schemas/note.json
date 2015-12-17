@@ -8,6 +8,10 @@
     "name": {
       "type": "string"
     },
+    "user": {
+      "type": "string",
+      "faker": "random.uuid"
+    },
     "content": {
       "type": "string"
     },
@@ -33,23 +37,25 @@
       "type": "integer"
     },
     "words": {
-      "required": "element",
       "type": "array",
-      "properties": {
-        "comment": {"minLength": 1}
-      },
-      "element": {
-        "properties": {
-          "word": {
-            "type": "string",
-            "faker": "random.uuid"
+      "minItems": 1,            
+      "uniqueItems": true,
+      "items": {
+        "word": {
+          "type": "string",
+          "faker": "random.uuid"
+        },
+        "poSpeech": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
           },
-          "poSpeech": {
-            "type": "array"
-          },
-          "frequency": {
-            "type": "integer"
-          }
+          "faker.poS": "randomArray"
+        },
+        "frequency": {
+          "type": "integer"
         }
       }
     }
