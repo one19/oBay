@@ -15,7 +15,7 @@ const SPEECH_PARTS = [
 ]
 
 generate.extend('faker', function(faker){
-  faker.locale = "en"; // or any other language 
+  //faker.locale = "en"; // or any other language 
   faker.poS = {
     randomArray: function() {
       var poS = SPEECH_PARTS;

@@ -230,14 +230,14 @@ test('POSTing a valid user should actually persist it', (t) => {
 test('PUTing an updated user should actually persist it', (t) => {
   return singleuserCreator()
   .then(body => {
-    body.name = 'Something else';
+    body.name = 'somethingElse@test.test';
     return body
   })
   .then(body => putter('/users/'+body.id)(body))
   .then(unwrapJSON)
   .then(body => getJSON('/users/'+body.id))
   .then((json) => {
-    t.equal(json.name, 'Something else');
+    t.equal(json.name, 'somethingElse@test.test');
   });
 });
 

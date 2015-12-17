@@ -9,19 +9,19 @@
       "type": "string"
     },
     "words": {
-      "required": "element",
       "type": "array",
-      "properties": {
-        "comment": {"minLength": 1}
-      },
-      "element": {
+      "minItems": 2,
+      "maxItems": 5,
+      "items": {
+        "type": "object",
         "properties": {
           "word": {
             "type": "string",
             "faker": "random.uuid"
           },
           "poSpeech": {
-            "type": "array"
+            "type": "array",
+            "faker.poS": "randomArray"
           },
           "frequency": {
             "type": "integer"
@@ -32,16 +32,32 @@
     "emot": {
       "type": "object",
       "properties": {
-        "confidence": "integer"
+        "confidence": {
+          "type": "integer"
+        }
       }
     },
     "alts": {
-      "type": "object",
-      "properties": {
-        "confidence": "integer",
-        "viability": "integer"
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "word": {
+            "type": "string"
+          },
+          "wordGroup": {
+            "type": "string"
+          },
+          "confidence": {
+            "type": "integer"
+          },
+          "viability": {
+            "type": "integer"
+          }
+        }
       }
     }
   },
-  "required": ["name"]
+  "required": ["name", "id"]
 }

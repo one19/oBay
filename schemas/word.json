@@ -20,16 +20,32 @@
     "emot": {
       "type": "object",
       "properties": {
-        "confidence": "integer"
+        "confidence": {
+          "type": "integer"
+        }
       }
     },
     "alts": {
-      "type": "object",
-      "properties": {
-        "confidence": "integer",
-        "viability": "integer"
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "word": {
+            "type": "string"
+          },
+          "wordGroup": {
+            "type": "string"
+          },
+          "confidence": {
+            "type": "integer"
+          },
+          "viability": {
+            "type": "integer"
+          }
+        }
       }
     }
   },
-  "required": ["name"]
+  "required": ["name", "id"]
 }

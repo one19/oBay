@@ -7,7 +7,7 @@
     },
     "name": {
       "type": "string",
-      "faker": ""
+      "faker": "internet.email"
     },
     "notes": {
       "type": "array",
@@ -19,5 +19,5 @@
       }
     }
   },
-  "required": ["name"]
+  "required": ["name", "id"]
 }

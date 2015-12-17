@@ -60,5 +60,5 @@
       }
     }
   },
-  "required": ["name", "words"]
+  "required": ["name", "words", "user", "id"]
 }
