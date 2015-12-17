@@ -1,0 +1,47 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "faker": "random.uuid"
+    },
+    "name": {
+      "type": "string"
+    },
+    "words": {
+      "required": "element",
+      "type": "array",
+      "properties": {
+        "comment": {"minLength": 1}
+      },
+      "element": {
+        "properties": {
+          "word": {
+            "type": "string",
+            "faker": "random.uuid"
+          },
+          "poSpeech": {
+            "type": "array"
+          },
+          "frequency": {
+            "type": "integer"
+          }
+        }
+      }
+    },
+    "emot": {
+      "type": "object",
+      "properties": {
+        "confidence": "integer"
+      }
+    },
+    "alts": {
+      "type": "object",
+      "properties": {
+        "confidence": "integer",
+        "viability": "integer"
+      }
+    }
+  },
+  "required": ["name"]
+}
