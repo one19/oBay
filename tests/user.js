@@ -100,6 +100,7 @@ test('GET /users should accept search params in the querystring', (t) => {
   .then(users => {
     return getJSON('/users?name='+users[0].name)
     .then(json => {
+      console.log('USERLUSER', users[0]);
       t.equal(json.length, 1);
       t.equal(json[0].name, users[0].name);
     });

@@ -9,6 +9,7 @@
   },
   "scripts": {
     "test": "RETHINK_HOST=localhost RETHINK_PORT=28015 RETHINK_NAME=oBay PORT=3001 node test.js",
+    "seed": "RETHINK_HOST=localhost RETHINK_PORT=28015 RETHINK_NAME=oBay PORT=3001 node seed.js",
     "start": "RETHINK_HOST=localhost RETHINK_PORT=28015 RETHINK_NAME=oBay PORT=3001 node start.js",
     "coverage": "RETHINK_HOST=localhost RETHINK_PORT=28015 RETHINK_NAME=oBay PORT=3001 ./node_modules/.bin/istanbul cover test.js"
   },

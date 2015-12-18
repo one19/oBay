@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Code coverage report for oBay/controllers/word.js</title>
+    <title>Code coverage report for oBay/controllers/wordGroup.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -16,7 +16,7 @@
 <div class='wrapper'>
   <div class='pad1'>
     <h1>
-      <a href="../../index.html">all files</a> / <a href="index.html">oBay/controllers/</a> word.js
+      <a href="../../index.html">all files</a> / <a href="index.html">oBay/controllers/</a> wordGroup.js
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
@@ -307,7 +307,7 @@
 const _ = require('lodash');
 &nbsp;
 const db = require('../lib/db.js');
-const schema = require('../schemas/word.json');
+const schema = require('../schemas/wordGroup.json');
 const validate = jsen(schema);
 &nbsp;
 const firstChange = res =&gt; {
@@ -357,7 +357,7 @@ const normaliseParams = params =&gt; {
 &nbsp;
 module.exports = {
   get: (params) =&gt; {
-    const table = db.table('words');
+    const table = db.table('wordGroups');
 &nbsp;
     if (params.id) {
       return table.get(params.id).run()
@@ -397,7 +397,7 @@ module.exports = {
     });
   },
   watch: (params) =&gt; {
-    const table = db.table('words');
+    const table = db.table('wordGroups');
     if (params &amp;&amp; params.id) {
       return table.get(params.id).changes({includeInitial: true, includeStates: true}).run();
     }
@@ -413,20 +413,20 @@ module.exports = {
 &nbsp;
     return query.changes({includeInitial: true, includeStates: true}).run();
   },
-  create: (word) =&gt; {
-    const valid = validate(word);
+  create: (wordGroup) =&gt; {
+    const valid = validate(wordGroup);
     <span class="missing-if-branch" title="if path not taken" >I</span>if (!valid) <span class="cstat-no" title="statement not covered" >return Promise.reject(valid);</span>
-    return db.table('words').insert(word, {returnChanges: true}).run()
+    return db.table('wordGroups').insert(wordGroup, {returnChanges: true}).run()
     .then(firstChange);
   },
-  update: (word) =&gt; {
-    const valid = validate(word);
+  update: (wordGroup) =&gt; {
+    const valid = validate(wordGroup);
     <span class="missing-if-branch" title="if path not taken" >I</span>if (!valid) <span class="cstat-no" title="statement not covered" >return Promise.reject(valid);</span>
-    return db.table('words').update(word, {returnChanges: true}).run()
+    return db.table('wordGroups').update(wordGroup, {returnChanges: true}).run()
     .then(firstChange);
   },
   delete: (id) =&gt; {
-    return db.table('words').get(id).delete({returnChanges: true}).run()
+    return db.table('wordGroups').get(id).delete({returnChanges: true}).run()
     .then(res =&gt; {
       return res;
     })

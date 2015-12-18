@@ -19,13 +19,7 @@ const respond = res => body => {
 
 module.exports = {
   http: app => {
-    app.get('/', (req, res) => {
-      note.get(req.query)
-      .then(respond(res))
-      .catch( errHandlerFactory(res) )
-    });
-
-    app.get('/notes', (req, res) => {
+    app.get('/notes.json', (req, res) => {
       note.get(req.query)
       .then(respond(res))
       .catch( errHandlerFactory(res) )

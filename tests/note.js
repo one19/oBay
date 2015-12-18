@@ -100,6 +100,8 @@ test('GET /notes should accept search params in the querystring', (t) => {
   .then(notes => {
     return getJSON('/notes?name='+notes[0].name)
     .then(json => {
+      console.log('NOOOOTES', notes[0])
+      console.log('NOOOTES', notes[0].words[0].poSpeech)
       t.equal(json.length, 1);
       t.equal(json[0].name, notes[0].name);
     });
